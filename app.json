@@ -4,27 +4,32 @@
     "slug": "HighlandsMusicFestival",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Logo-No-Bkgd-min.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/Logo-No-Bkgd-min.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.orrymevorach.HighlandsMusicFestival"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.orrymevorach.HighlandsMusicFestival"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/Logo-No-Bkgd-min.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c0c22e52-b015-4751-b312-dd4e78fd5236"
+      }
     }
   }
 }

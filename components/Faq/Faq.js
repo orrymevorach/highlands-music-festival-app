@@ -5,6 +5,7 @@ import FaqCategories from './FaqCategories';
 import { darkGreen } from 'utils/style-variables';
 import Loader from 'components/Loader/Loader';
 import { getCategoryData } from './faq-utils';
+import { beige } from 'utils/style-variables';
 
 export default function Faq() {
   const { data, loading } = useQuery(GET_FAQ_PAGE);
@@ -15,7 +16,7 @@ export default function Faq() {
 
   return (
     <SafeAreaView style={styles.faqWrapper}>
-      <ScrollView>
+      <ScrollView style={styles.padding}>
         <FaqCategories categoryData={categoryData} />
         <Text style={styles.otherQuestionsHeading}>
           What if I have other questions?
@@ -31,6 +32,9 @@ export default function Faq() {
 
 const styles = StyleSheet.create({
   faqWrapper: {
+    backgroundColor: beige,
+  },
+  padding: {
     marginHorizontal: 20,
   },
   otherQuestionsHeading: {

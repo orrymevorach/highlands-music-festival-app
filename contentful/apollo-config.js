@@ -13,5 +13,3 @@ export const contentfulClient = new ApolloClient({
     authorization: `Bearer ${NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN}`,
   },
 });
-
-console.log('hey dude!');
