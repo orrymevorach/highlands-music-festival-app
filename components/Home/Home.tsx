@@ -6,6 +6,8 @@ import ArtistAnnouncement from './ArtistAnnouncement/ArtistAnnouncement';
 import { FEATURE_FLAGS } from 'utils/constants';
 import { GET_FEATURE_FLAG, GET_LINEUP_AND_SCHEDULE } from 'contentful/queries';
 import InformationTiles from './InformationTiles/InformationTiles';
+import Articles from './Articles/Articles';
+import Sponsors from './Sponsors/Sponsors';
 
 export default function Home() {
   const headlinerFeatureFlagResponse = useQuery(GET_FEATURE_FLAG, {
@@ -48,6 +50,8 @@ export default function Home() {
         />
       )}
       <InformationTiles />
+      <Articles />
+      <Sponsors />
     </Layout>
   );
 }
