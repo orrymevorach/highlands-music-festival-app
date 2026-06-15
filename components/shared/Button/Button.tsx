@@ -114,7 +114,10 @@ export default function Button({
     <Pressable
       disabled={isButtonDisabled}
       onPress={onPress}
-      style={({ pressed }) => [buttonStyles, pressed && !isDisabled ? styles.pressed : null]}
+      style={({ pressed }) => [
+        buttonStyles,
+        pressed && !isDisabled ? styles.pressed : null,
+      ]}
       accessibilityRole='button'
       accessibilityState={{ disabled: isButtonDisabled }}
     >

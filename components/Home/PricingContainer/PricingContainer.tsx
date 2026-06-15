@@ -24,7 +24,7 @@ import Button from 'components/shared/Button/Button';
 const DESKTOP_COMPACT_BREAKPOINT = 1200;
 const TABLET_BREAKPOINT = 1024;
 const MOBILE_BREAKPOINT = 768;
-const BUY_TICKETS_URL = 'https://highlandsmusicfestival.ca/tickets';
+const BUY_TICKETS_URL = 'https://highlandsmusicfestival.ca/buy-tickets';
 
 const openTicketsLink = async () => {
   const supported = await Linking.canOpenURL(BUY_TICKETS_URL);

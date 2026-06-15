@@ -3,6 +3,7 @@ import Faq from 'components/Faq/Faq';
 import { ApolloProvider } from '@apollo/client';
 import { contentfulClient } from './contentful/apollo-config';
 import Home from 'components/Home/Home';
+import Lineup from 'components/LineupAndSchedule/LineupAndSchedule';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -14,6 +15,10 @@ const Tab = createBottomTabNavigator();
 const getTabIcon = (routeName, color, size) => {
   if (routeName === 'Home') {
     return <Ionicons name='home-outline' size={size} color={color} />;
+  }
+
+  if (routeName === 'Lineup') {
+    return <Ionicons name='musical-notes-outline' size={size} color={color} />;
   }
 
   return <Ionicons name='help-circle-outline' size={size} color={color} />;
@@ -46,6 +51,7 @@ export default function App() {
           })}
         >
           <Tab.Screen name='Home' component={Home} />
+          <Tab.Screen name='Lineup' component={Lineup} />
           <Tab.Screen name='FAQ' component={Faq} />
         </Tab.Navigator>
       </ApolloProvider>
