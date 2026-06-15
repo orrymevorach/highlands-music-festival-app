@@ -15,6 +15,7 @@ type RichTextNode = {
 
 type RichTextProps = {
   json: unknown;
+  config?: RichTextRenderConfig;
 };
 
 type MarkRendererMap = Record<
@@ -26,6 +27,12 @@ type NodeRendererMap = Record<
   (node: RichTextNode, children: React.ReactNode[]) => React.ReactNode
 >;
 
+type RichTextRenderConfig = {
+  renderMark?: MarkRendererMap;
+  renderNode?: NodeRendererMap;
+  renderText?: (text: string) => React.ReactNode;
+};
+
 const isRichTextDocument = (value: unknown): value is RichTextNode => {
   if (!value || typeof value !== 'object') return false;
 
@@ -33,11 +40,11 @@ const isRichTextDocument = (value: unknown): value is RichTextNode => {
   return Boolean(candidate.nodeType) && Array.isArray(candidate.content);
 };
 
-function applyMarks(value: React.ReactNode, marks: RichTextMark[] = []) {
-  const markRenderers = sharedRichTextConfig?.renderMark as
-    | MarkRendererMap
-    | undefined;
-
+function applyMarks(
+  value: React.ReactNode,
+  marks: RichTextMark[] = [],
+  markRenderers?: MarkRendererMap,
+) {
   return marks.reduce((renderedValue, mark) => {
     const markRenderer = markRenderers?.[mark?.type];
     return markRenderer ? markRenderer(renderedValue) : renderedValue;
@@ -46,14 +53,19 @@ function applyMarks(value: React.ReactNode, marks: RichTextMark[] = []) {
 
 function renderNode(
   node: RichTextNode | null | undefined,
+  config: RichTextRenderConfig,
   keyPrefix = 'node',
 ): React.ReactNode {
   if (!node) return null;
 
   if (node.nodeType === 'text') {
+    const renderedText = config.renderText
+      ? config.renderText(node.value || '')
+      : node.value || '';
+
     return (
       <React.Fragment key={keyPrefix}>
-        {applyMarks(node.value || '', node.marks)}
+        {applyMarks(renderedText, node.marks, config.renderMark)}
       </React.Fragment>
     );
   }
@@ -61,14 +73,11 @@ function renderNode(
   const renderedChildren: React.ReactNode[] = Array.isArray(node.content)
     ? node.content.map(
         (child: RichTextNode, index: number): React.ReactNode =>
-          renderNode(child, `${keyPrefix}-${index}`),
+          renderNode(child, config, `${keyPrefix}-${index}`),
       )
     : [];
 
-  const nodeRenderers = sharedRichTextConfig?.renderNode as
-    | NodeRendererMap
-    | undefined;
-  const nodeRenderer = nodeRenderers?.[node.nodeType];
+  const nodeRenderer = config.renderNode?.[node.nodeType];
   const renderedNode: React.ReactNode = nodeRenderer
     ? nodeRenderer(node, renderedChildren)
     : renderedChildren;
@@ -92,7 +101,7 @@ function renderNode(
   return <React.Fragment key={keyPrefix}>{renderedNode}</React.Fragment>;
 }
 
-export default function RichText({ json }: RichTextProps) {
+export default function RichText({ json, config }: RichTextProps) {
   if (!json) return null;
 
   let parsedJson: unknown;
@@ -107,5 +116,17 @@ export default function RichText({ json }: RichTextProps) {
     return null;
   }
 
-  return <View>{renderNode(parsedJson, 'root')}</View>;
+  const mergedConfig: RichTextRenderConfig = {
+    renderMark: {
+      ...(sharedRichTextConfig?.renderMark as MarkRendererMap),
+      ...(config?.renderMark || {}),
+    },
+    renderNode: {
+      ...(sharedRichTextConfig?.renderNode as NodeRendererMap),
+      ...(config?.renderNode || {}),
+    },
+    renderText: config?.renderText,
+  };
+
+  return <View>{renderNode(parsedJson, mergedConfig, 'root')}</View>;
 }
