@@ -1,4 +1,6 @@
+import SectionHeading from 'components/shared/SectionHeading/SectionHeading';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { fontTertiary } from 'utils/style-variables';
 
 type Headliner = {
   name?: string;
@@ -38,11 +40,11 @@ export default function ArtistAnnouncement({
 
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.heading}>
+      <SectionHeading classNames={styles.heading} isPeach>
         {visibleHeadliners.length > 1
           ? '2026 Headliners:'
           : 'Headliner Announcement:'}
-      </Text>
+      </SectionHeading>
       <View style={styles.container}>
         <View style={styles.imagesContainer}>
           {visibleHeadliners.map((headliner, index) => (
@@ -103,7 +105,11 @@ const styles = StyleSheet.create({
   overlayName: {
     color: '#fff',
     fontSize: 32,
+    fontFamily: fontTertiary,
     textAlign: 'center',
     paddingHorizontal: 20,
+  },
+  headlinerName: {
+    fontFamily: fontTertiary,
   },
 });

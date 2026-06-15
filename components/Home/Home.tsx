@@ -32,8 +32,8 @@ export default function Home() {
 
   const headlinersResponse = useQuery(GET_LINEUP_AND_SCHEDULE);
   const headliners =
-    headlinersResponse.data.lineupCollection.items[0].headlinersCollection
-      .items;
+    headlinersResponse.data?.lineupCollection?.items?.[0]
+      ?.headlinersCollection?.items || [];
 
   return (
     <Layout scroll paddingHorizontal={0}>

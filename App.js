@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { beige, darkGreen, mediumGreen } from 'utils/style-variables';
+import { useCustomFonts } from './hooks/useFonts';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,6 +20,12 @@ const getTabIcon = (routeName, color, size) => {
 };
 
 export default function App() {
+  const fontsLoaded = useCustomFonts();
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <NavigationContainer>
       <ApolloProvider client={contentfulClient}>

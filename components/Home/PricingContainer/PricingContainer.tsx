@@ -7,12 +7,19 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import { charcoal, darkGreen, yellow } from 'utils/style-variables';
+import {
+  charcoal,
+  darkGreen,
+  fontSecondaryBold,
+  fontTertiary,
+  yellow,
+} from 'utils/style-variables';
 
 import singleTicket from 'assets/emojis/single-ticket.png';
 import groupTicket from 'assets/emojis/tickets.png';
 import cabin from 'assets/emojis/cabin.png';
 import yurt from 'assets/emojis/yurt.png';
+import Button from 'components/shared/Button/Button';
 
 const DESKTOP_COMPACT_BREAKPOINT = 1200;
 const TABLET_BREAKPOINT = 1024;
@@ -153,13 +160,9 @@ export default function PricingContainer() {
         </Text>
       </View>
 
-      <Pressable
-        style={styles.button}
-        onPress={openTicketsLink}
-        accessibilityRole='button'
-      >
-        <Text style={styles.buttonText}>BUY TICKETS</Text>
-      </Pressable>
+      <Button handleClick={openTicketsLink} isBlue>
+        BUY TICKETS
+      </Button>
     </View>
   );
 }
@@ -182,6 +185,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     color: charcoal,
     fontWeight: '700',
+    fontFamily: fontTertiary,
     textAlign: 'center',
   },
   line: {
@@ -191,6 +195,7 @@ const styles = StyleSheet.create({
   },
   lineText: {
     color: charcoal,
+    fontFamily: fontSecondaryBold,
     textTransform: 'uppercase',
     fontWeight: '700',
     letterSpacing: -0.5,
@@ -200,6 +205,7 @@ const styles = StyleSheet.create({
   },
   subText: {
     color: 'rgb(207, 45, 45)',
+    fontFamily: fontTertiary,
     alignSelf: 'center',
     letterSpacing: 0,
     textAlign: 'center',
