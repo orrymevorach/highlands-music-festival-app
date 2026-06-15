@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Button, Alert } from 'react-native';
-import { darkGreen, yellow } from '../../style-variables';
+import { darkGreen, yellow } from 'utils/style-variables';
 
 export default function MenuItem({ title = '' }) {
   return (

@@ -1,6 +1,13 @@
 // import styles from './rich-text.module.scss';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
-import { Linking, StyleSheet, Text, View, SafeAreaView, FlatList } from 'react-native';
+import {
+  Linking,
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  FlatList,
+} from 'react-native';
 
 const openExternalLink = async url => {
   if (!url) return;

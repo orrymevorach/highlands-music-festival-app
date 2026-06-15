@@ -1,21 +1,46 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Faq from 'components/Faq/Faq';
 import { ApolloProvider } from '@apollo/client';
 import { contentfulClient } from './contentful/apollo-config';
 import Home from 'components/Home/Home';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+import { beige, darkGreen, mediumGreen } from 'utils/style-variables';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const getTabIcon = (routeName, color, size) => {
+  if (routeName === 'Home') {
+    return <Ionicons name='home-outline' size={size} color={color} />;
+  }
+
+  return <Ionicons name='help-circle-outline' size={size} color={color} />;
+};
 
 export default function App() {
   return (
     <NavigationContainer>
       <ApolloProvider client={contentfulClient}>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="FAQ" component={Faq} />
-        </Stack.Navigator>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            headerShown: false,
+            tabBarActiveTintColor: darkGreen,
+            tabBarInactiveTintColor: mediumGreen,
+            tabBarStyle: {
+              backgroundColor: beige,
+              borderTopWidth: 0,
+              height: 64,
+              paddingBottom: 8,
+              paddingTop: 8,
+            },
+            tabBarIcon: ({ color, size }) =>
+              getTabIcon(route.name, color, size),
+          })}
+        >
+          <Tab.Screen name='Home' component={Home} />
+          <Tab.Screen name='FAQ' component={Faq} />
+        </Tab.Navigator>
       </ApolloProvider>
     </NavigationContainer>
   );

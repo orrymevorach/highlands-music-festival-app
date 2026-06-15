@@ -1,17 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import {
-  Animated,
-  StyleSheet,
-  SafeAreaView,
-  Image,
-  Button,
-} from 'react-native';
+import { Animated, StyleSheet, Image } from 'react-native';
 import logo from '../../assets/Logo-No-Bkgd-min.png';
-import { useNavigation } from '@react-navigation/native';
-import { beige } from 'utils/style-variables';
 import * as Notifications from 'expo-notifications';
+import Layout from 'components/shared/Layout/Layout';
 
-async function sendPushNotification(expoPushToken) {
+async function sendPushNotification(expoPushToken: string) {
   const message = {
     to: expoPushToken,
     sound: 'default',
@@ -34,7 +27,6 @@ async function sendPushNotification(expoPushToken) {
 export default function Home() {
   // fadeAnim will be used as the value for opacity. Initial Value: 0
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const navigation = useNavigation();
 
   const fadeIn = () => {
     // Will change fadeAnim value to 1 in 5 seconds
@@ -66,13 +58,10 @@ export default function Home() {
     setTimeout(() => {
       fadeOut();
     }, 3000);
-    setTimeout(() => {
-      navigation.navigate('FAQ');
-    }, 5000);
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <Layout center paddingHorizontal={0}>
       <Animated.View
         style={[
           {
@@ -82,17 +71,11 @@ export default function Home() {
       >
         <Image source={logo} style={styles.logo} />
       </Animated.View>
-    </SafeAreaView>
+    </Layout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: beige,
-  },
   logo: {
     width: 300,
     height: 80,

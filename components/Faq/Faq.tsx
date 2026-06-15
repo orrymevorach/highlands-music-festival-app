@@ -1,11 +1,11 @@
-import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { GET_FAQ_PAGE } from 'contentful/queries';
 import { useQuery } from '@apollo/client';
 import FaqCategories from './FaqCategories';
 import { darkGreen } from 'utils/style-variables';
 import Loader from 'components/Loader/Loader';
 import { getCategoryData } from './faq-utils';
-import { beige } from 'utils/style-variables';
+import Layout from 'components/shared/Layout/Layout';
 
 export default function Faq() {
   const { data, loading } = useQuery(GET_FAQ_PAGE);
@@ -15,28 +15,20 @@ export default function Faq() {
   const categoryData = getCategoryData({ faqData });
 
   return (
-    <SafeAreaView style={styles.faqWrapper}>
-      <ScrollView style={styles.padding}>
-        <FaqCategories categoryData={categoryData} />
-        <Text style={styles.otherQuestionsHeading}>
-          What if I have other questions?
-        </Text>
-        <Text style={styles.otherQuestionsText}>
-          Please reach out to us at info@highlandsmusicfestival.ca for any
-          questions about the festival!
-        </Text>
-      </ScrollView>
-    </SafeAreaView>
+    <Layout scroll>
+      <FaqCategories categoryData={categoryData} />
+      <Text style={styles.otherQuestionsHeading}>
+        What if I have other questions?
+      </Text>
+      <Text style={styles.otherQuestionsText}>
+        Please reach out to us at info@highlandsmusicfestival.ca for any
+        questions about the festival!
+      </Text>
+    </Layout>
   );
 }
 
 const styles = StyleSheet.create({
-  faqWrapper: {
-    backgroundColor: beige,
-  },
-  padding: {
-    marginHorizontal: 20,
-  },
   otherQuestionsHeading: {
     fontSize: 30,
     marginTop: 80,
