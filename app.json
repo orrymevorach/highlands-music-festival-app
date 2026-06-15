@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.orrymevorach.HighlandsMusicFestival"
@@ -30,6 +32,9 @@
       "eas": {
         "projectId": "c0c22e52-b015-4751-b312-dd4e78fd5236"
       }
-    }
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

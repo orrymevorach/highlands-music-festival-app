@@ -1,6 +1,19 @@
 // import styles from './rich-text.module.scss';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
-import { StyleSheet, Text, View, SafeAreaView, FlatList } from 'react-native';
+import { Linking, StyleSheet, Text, View, SafeAreaView, FlatList } from 'react-native';
+
+const openExternalLink = async url => {
+  if (!url) return;
+
+  try {
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    }
+  } catch (_error) {
+    // Swallow failures so rich text still renders even when URL handling fails.
+  }
+};
 
 export const sharedRichTextConfig = {
   renderMark: {
@@ -19,7 +32,17 @@ export const sharedRichTextConfig = {
   },
   renderNode: {
     [INLINES.HYPERLINK]: (node, children) => {
-      return <Text style={styles.hyperlink}>{children}</Text>;
+      const url = node?.data?.uri;
+
+      return (
+        <Text
+          style={styles.hyperlink}
+          accessibilityRole='link'
+          onPress={() => openExternalLink(url)}
+        >
+          {children}
+        </Text>
+      );
     },
     [BLOCKS.EMBEDDED_ENTRY]: node => {
       return null;
