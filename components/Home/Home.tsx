@@ -5,6 +5,7 @@ import PricingContainer from './PricingContainer/PricingContainer';
 import ArtistAnnouncement from './ArtistAnnouncement/ArtistAnnouncement';
 import { FEATURE_FLAGS } from 'utils/constants';
 import { GET_FEATURE_FLAG, GET_LINEUP_AND_SCHEDULE } from 'contentful/queries';
+import InformationTiles from './InformationTiles/InformationTiles';
 
 export default function Home() {
   const headlinerFeatureFlagResponse = useQuery(GET_FEATURE_FLAG, {
@@ -32,8 +33,8 @@ export default function Home() {
 
   const headlinersResponse = useQuery(GET_LINEUP_AND_SCHEDULE);
   const headliners =
-    headlinersResponse.data?.lineupCollection?.items?.[0]
-      ?.headlinersCollection?.items || [];
+    headlinersResponse.data?.lineupCollection?.items?.[0]?.headlinersCollection
+      ?.items || [];
 
   return (
     <Layout scroll paddingHorizontal={0}>
@@ -46,6 +47,7 @@ export default function Home() {
           }
         />
       )}
+      <InformationTiles />
     </Layout>
   );
 }

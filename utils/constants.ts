@@ -9,3 +9,10 @@ export const FEATURE_FLAGS = {
   ENABLE_ARTIST_SUBMISSIONS: 'ENABLE_ARTIST_SUBMISSIONS',
   IS_FESTIVAL_TRANSITION_PERIOD: 'IS_FESTIVAL_TRANSITION_PERIOD',
 } as const;
+
+export const MAP_URLS_TO_SCREENS = {
+  '/': 'Home',
+  '/lineup-and-schedule': 'Lineup',
+  '/faq': 'FAQ',
+  'location-and-accommodation': 'Home',
+} as const;
