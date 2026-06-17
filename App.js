@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Faq from 'components/Faq/Faq';
 import { ApolloProvider } from '@apollo/client';
 import { contentfulClient } from './contentful/apollo-config';
@@ -9,6 +9,16 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { beige, darkGreen, mediumGreen } from 'utils/style-variables';
 import { useCustomFonts } from './hooks/useFonts';
+import { registerForPushNotificationsAsync } from 'firebase/registerForPushNotificationsAsync';
+import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 const Tab = createBottomTabNavigator();
 
@@ -26,6 +36,12 @@ const getTabIcon = (routeName, color, size) => {
 
 export default function App() {
   const fontsLoaded = useCustomFonts();
+
+  // placeholder
+  const user = null;
+  useEffect(() => {
+    registerForPushNotificationsAsync(user?.uid || null);
+  }, [user?.uid]);
 
   if (!fontsLoaded) {
     return null;
