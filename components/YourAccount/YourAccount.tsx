@@ -3,6 +3,7 @@ import Layout from 'components/shared/Layout/Layout';
 import useReservationData from 'hooks/useReservationData';
 import ReservationSummary from './ReservationSummary/ReservationSummary';
 import VerifiedUsers from './VerifiedUsers/VerifiedUsers';
+import BedMap from './BedMap/BedMap';
 import { black, darkGreen, fontSecondary } from 'utils/style-variables';
 
 export default function YourAccount() {
@@ -33,6 +34,11 @@ export default function YourAccount() {
   }
 
   const members = data.group.members.length ? data.group.members : [data.user];
+  const memberIds = new Set(members.map(({ id }) => id));
+  const groupSelectedBeds = data.selectedBeds.filter(bed => memberIds.has(bed.id));
+  const currentUserHasBed = data.selectedBeds.some(
+    bed => bed.id === data.user?.id,
+  );
 
   return (
     <Layout scroll>
@@ -40,6 +46,7 @@ export default function YourAccount() {
         <Text style={styles.title}>Your Account</Text>
         <ReservationSummary cabin={data.user.cabin} />
         <VerifiedUsers members={members} currentUserId={data.user.id} />
+        {currentUserHasBed && <BedMap selectedBeds={groupSelectedBeds} />}
       </View>
     </Layout>
   );
