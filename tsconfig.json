@@ -5,7 +5,8 @@
     "paths": {
       "components/*": ["components/*"],
       "utils/*": ["utils/*"],
-      "contentful/*": ["contentful/*"]
+      "contentful/*": ["contentful/*"],
+      "hooks/*": ["hooks/*"]
     }
   },
   "extends": "expo/tsconfig.base"

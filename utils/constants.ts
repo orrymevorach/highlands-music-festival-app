@@ -16,3 +16,6 @@ export const MAP_URLS_TO_SCREENS = {
   '/faq': 'FAQ',
   'location-and-accommodation': 'Home',
 } as const;
+
+// TODO: remove once auth is wired up and the logged-in user's record id is available
+export const TEST_USER_ID = 'reciRTA6yM5CzfQQF';

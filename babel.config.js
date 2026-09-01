@@ -23,6 +23,7 @@ module.exports = function (api) {
             components: './components/',
             utils: './utils/',
             contentful: './contentful/',
+            hooks: './hooks/',
           },
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },

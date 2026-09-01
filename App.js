@@ -5,6 +5,7 @@ import { contentfulClient } from './contentful/apollo-config';
 import Home from 'components/Home/Home';
 import Announcements from 'components/Announcements/Announcements';
 import Lineup from 'components/LineupAndSchedule/LineupAndSchedule';
+import YourAccount from 'components/YourAccount/YourAccount';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -30,6 +31,10 @@ const getTabIcon = (routeName, color, size) => {
 
   if (routeName === 'Lineup') {
     return <Ionicons name='musical-notes-outline' size={size} color={color} />;
+  }
+
+  if (routeName === 'Account') {
+    return <Ionicons name='person-outline' size={size} color={color} />;
   }
 
   return <Ionicons name='help-circle-outline' size={size} color={color} />;
@@ -70,6 +75,7 @@ export default function App() {
           <Tab.Screen name='Home' component={Home} />
           <Tab.Screen name='Lineup' component={Lineup} />
           <Tab.Screen name='Announcements' component={Announcements} />
+          <Tab.Screen name='Account' component={YourAccount} />
           <Tab.Screen name='FAQ' component={Faq} />
         </Tab.Navigator>
       </ApolloProvider>
