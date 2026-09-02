@@ -6,7 +6,9 @@
       "components/*": ["components/*"],
       "utils/*": ["utils/*"],
       "contentful/*": ["contentful/*"],
-      "hooks/*": ["hooks/*"]
+      "hooks/*": ["hooks/*"],
+      "lib/*": ["lib/*"],
+      "context/*": ["context/*"]
     }
   },
   "extends": "expo/tsconfig.base"

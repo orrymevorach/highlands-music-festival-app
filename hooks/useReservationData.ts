@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { TEST_USER_ID } from 'utils/constants';
 
 export type ReservationBed = {
   bedName: string;
@@ -34,16 +33,21 @@ export type UserReservationData = {
   selectedBeds: ReservationBed[];
 };
 
-export default function useReservationData() {
+export default function useReservationData(userId: string | null) {
   const [data, setData] = useState<UserReservationData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
+    if (!userId) {
+      setIsLoading(false);
+      return;
+    }
+
     async function fetchReservationData() {
       try {
         const response = await fetch(
-          `${process.env.EXPO_PUBLIC_RESERVATIONS_API_URL}/api/platform/user-reservation-data?userId=${TEST_USER_ID}`,
+          `${process.env.EXPO_PUBLIC_RESERVATIONS_API_URL}/api/platform/user-reservation-data?userId=${userId}`,
         ).then(res => res.json());
 
         if (response.message) {
@@ -60,7 +64,7 @@ export default function useReservationData() {
     }
 
     fetchReservationData();
-  }, []);
+  }, [userId]);
 
   return { data, isLoading, error };
 }

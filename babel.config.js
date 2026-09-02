@@ -24,6 +24,8 @@ module.exports = function (api) {
             utils: './utils/',
             contentful: './contentful/',
             hooks: './hooks/',
+            lib: './lib/',
+            context: './context/',
           },
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
