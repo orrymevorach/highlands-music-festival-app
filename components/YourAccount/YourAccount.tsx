@@ -1,11 +1,8 @@
-import {
-  ActivityIndicator,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { ActivityIndicator, StyleSheet, Text } from 'react-native';
 import Layout from 'components/shared/Layout/Layout';
+import GroovyCard from 'components/shared/GroovyCard/GroovyCard';
+import Button from 'components/shared/Button/Button';
+import SectionHeading from 'components/shared/SectionHeading/SectionHeading';
 import useReservationData from 'hooks/useReservationData';
 import ReservationSummary from './ReservationSummary/ReservationSummary';
 import VerifiedUsers from './VerifiedUsers/VerifiedUsers';
@@ -13,20 +10,11 @@ import BedMap from './BedMap/BedMap';
 import { useAuth } from 'context/AuthContext';
 import {
   black,
+  blue,
   darkGreen,
   fontSecondary,
-  fontSecondaryBold,
-  mediumGreen,
-  white,
+  peach,
 } from 'utils/style-variables';
-
-function LogoutButton({ onLogout }: { onLogout: () => void }) {
-  return (
-    <Pressable style={styles.logoutButton} onPress={onLogout}>
-      <Text style={styles.logoutButtonText}>Log Out</Text>
-    </Pressable>
-  );
-}
 
 export default function YourAccount() {
   const { user: authUser, logout } = useAuth();
@@ -44,7 +32,9 @@ export default function YourAccount() {
     return (
       <Layout center>
         <Text style={styles.message}>{error}</Text>
-        <LogoutButton onLogout={logout} />
+        <Button isDarkGreen isSmall handleClick={logout}>
+          Log Out
+        </Button>
       </Layout>
     );
   }
@@ -53,7 +43,9 @@ export default function YourAccount() {
     return (
       <Layout center>
         <Text style={styles.message}>You haven't reserved a cabin yet.</Text>
-        <LogoutButton onLogout={logout} />
+        <Button isDarkGreen isSmall handleClick={logout}>
+          Log Out
+        </Button>
       </Layout>
     );
   }
@@ -67,44 +59,73 @@ export default function YourAccount() {
     bed => bed.id === data.user?.id,
   );
 
+  const unitName = Array.isArray(data.user.cabin.unit)
+    ? data.user.cabin.unit[0]
+    : data.user.cabin.unit;
+  const unit = data.cabinAndUnitData?.units.find(({ name }) => name === unitName);
+  const unitMapImageUrl = unit?.image?.[0]?.url;
+
   return (
-    <Layout scroll>
-      <View style={styles.section}>
-        <Text style={styles.title}>Your Account</Text>
-        <ReservationSummary cabin={data.user.cabin} />
+    <Layout scroll paddingHorizontal={0}>
+      <SectionHeading classNames={styles.title}>Your Account</SectionHeading>
+
+      <GroovyCard
+        style={styles.card}
+        contentStyle={styles.cardContent}
+        backgroundColor={blue}
+      >
+        <ReservationSummary
+          cabin={data.user.cabin}
+          unitMapImageUrl={unitMapImageUrl}
+        />
+      </GroovyCard>
+
+      <GroovyCard
+        style={styles.card}
+        contentStyle={styles.cardContent}
+        backgroundColor={peach}
+      >
         <VerifiedUsers members={members} currentUserId={data.user.id} />
-        {currentUserHasBed && <BedMap selectedBeds={groupSelectedBeds} />}
-        <LogoutButton onLogout={logout} />
-      </View>
+      </GroovyCard>
+
+      {currentUserHasBed && (
+        <GroovyCard style={styles.card} contentStyle={styles.cardContent}>
+          <BedMap selectedBeds={groupSelectedBeds} />
+        </GroovyCard>
+      )}
+
+      <Button
+        isDarkGreen
+        isSmall
+        classNames={styles.logoutButton}
+        handleClick={logout}
+      >
+        Log Out
+      </Button>
     </Layout>
   );
 }
 
 const styles = StyleSheet.create({
-  section: {
-    paddingVertical: 20,
-  },
   title: {
-    fontFamily: fontSecondary,
-    fontSize: 24,
-    color: darkGreen,
-    marginBottom: 12,
+    marginBottom: 4,
+  },
+  card: {
+    marginHorizontal: 20,
+    marginBottom: 16,
+  },
+  cardContent: {
+    padding: 16,
   },
   message: {
     fontFamily: fontSecondary,
     color: black,
     textAlign: 'center',
+    marginBottom: 12,
   },
   logoutButton: {
-    borderWidth: 1,
-    borderColor: mediumGreen,
-    borderRadius: 8,
-    paddingVertical: 12,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  logoutButtonText: {
-    fontFamily: fontSecondaryBold,
-    color: darkGreen,
+    marginHorizontal: 20,
+    marginTop: 4,
+    marginBottom: 30,
   },
 });

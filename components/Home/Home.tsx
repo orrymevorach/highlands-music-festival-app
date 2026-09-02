@@ -10,6 +10,8 @@ import Articles from './Articles/Articles';
 import Sponsors from './Sponsors/Sponsors';
 import CabinSummary from './CabinSummary/CabinSummary';
 import QuickNavButtons from './QuickNavButtons/QuickNavButtons';
+import TicketCountdown from './TicketCountdown/TicketCountdown';
+import RecentAnnouncements from './RecentAnnouncements/RecentAnnouncements';
 
 export default function Home() {
   const headlinerFeatureFlagResponse = useQuery(GET_FEATURE_FLAG, {
@@ -44,7 +46,9 @@ export default function Home() {
     <Layout scroll paddingHorizontal={0}>
       <CabinSummary />
       <QuickNavButtons />
-      <PricingContainer />
+      <TicketCountdown />
+      <RecentAnnouncements />
+      {/* <PricingContainer /> */}
       {headlinerFeatureFlag && (
         <ArtistAnnouncement
           headliners={headliners}
@@ -53,9 +57,9 @@ export default function Home() {
           }
         />
       )}
-      <InformationTiles />
-      <Articles />
-      <Sponsors />
+      {/* <InformationTiles /> */}
+      {/* <Articles /> */}
+      {/* <Sponsors /> */}
     </Layout>
   );
 }

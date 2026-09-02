@@ -1,10 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { Image, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+import Button from 'components/shared/Button/Button';
 import {
   black,
   darkGreen,
   fontSecondary,
   fontSecondaryBold,
   gold,
+  white,
 } from 'utils/style-variables';
 import type { ReservationCabin } from 'hooks/useReservationData';
 
@@ -23,14 +26,18 @@ function Pill({ children, isGold = false }: PillProps) {
 
 type ReservationSummaryProps = {
   cabin: ReservationCabin;
+  unitMapImageUrl?: string;
 };
 
-export default function ReservationSummary({ cabin }: ReservationSummaryProps) {
-  const { name, unit, additionalInformation, category } = cabin;
+export default function ReservationSummary({
+  cabin,
+  unitMapImageUrl,
+}: ReservationSummaryProps) {
+  const [showMap, setShowMap] = useState(false);
+  const { name, unit, category } = cabin;
   const unitName = Array.isArray(unit) ? unit[0] : unit;
   const categoryName = category?.[0];
   const showCategory = Boolean(categoryName) && categoryName !== 'Anywhere!';
-  const hasAdditionalInformation = Boolean(additionalInformation?.length);
 
   return (
     <View style={styles.container}>
@@ -45,23 +52,48 @@ export default function ReservationSummary({ cabin }: ReservationSummaryProps) {
       {showCategory && (
         <View style={styles.row}>
           <Text style={styles.label}>Category:</Text>
-          <Pill isGold>{categoryName}</Pill>
+          <Pill isGold>{categoryName as string}</Pill>
         </View>
       )}
-      {hasAdditionalInformation && (
-        <View style={styles.additionalInformationContainer}>
-          <Text style={styles.additionalInformationTitle}>
-            Additional information:
-          </Text>
-          <View style={styles.additionalInformationList}>
-            {additionalInformation
-              ?.filter(detail => detail !== categoryName)
-              .map(detail => (
-                <Pill key={detail}>{detail}</Pill>
-              ))}
+
+      {unitMapImageUrl && (
+        <Button
+          isGold
+          isSmall
+          classNames={styles.mapButton}
+          handleClick={() => setShowMap(true)}
+        >
+          Map Of {unitName}
+        </Button>
+      )}
+
+      <Modal
+        visible={showMap}
+        animationType='fade'
+        transparent
+        onRequestClose={() => setShowMap(false)}
+      >
+        <Pressable
+          style={styles.modalOverlay}
+          onPress={() => setShowMap(false)}
+        >
+          <View style={styles.modalCard}>
+            {unitMapImageUrl && (
+              <Image
+                source={{ uri: unitMapImageUrl }}
+                style={styles.mapImage}
+                resizeMode='contain'
+              />
+            )}
+            <Pressable
+              style={styles.closeButton}
+              onPress={() => setShowMap(false)}
+            >
+              <Text style={styles.closeButtonText}>Close</Text>
+            </Pressable>
           </View>
-        </View>
-      )}
+        </Pressable>
+      </Modal>
     </View>
   );
 }
@@ -84,19 +116,6 @@ const styles = StyleSheet.create({
     fontFamily: fontSecondaryBold,
     color: black,
   },
-  additionalInformationContainer: {
-    marginTop: 8,
-  },
-  additionalInformationTitle: {
-    fontFamily: fontSecondaryBold,
-    color: black,
-    marginBottom: 6,
-  },
-  additionalInformationList: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 6,
-  },
   pill: {
     paddingHorizontal: 10,
     paddingVertical: 4,
@@ -110,5 +129,39 @@ const styles = StyleSheet.create({
     fontFamily: fontSecondary,
     fontSize: 12,
     color: '#fff',
+  },
+  mapButton: {
+    marginTop: 12,
+    alignSelf: 'flex-start',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+  },
+  modalCard: {
+    width: '100%',
+    backgroundColor: white,
+    borderRadius: 12,
+    padding: 16,
+    alignItems: 'center',
+  },
+  mapImage: {
+    width: '100%',
+    height: 320,
+    borderRadius: 8,
+    marginBottom: 12,
+  },
+  closeButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    backgroundColor: darkGreen,
+    borderRadius: 8,
+  },
+  closeButtonText: {
+    fontFamily: fontSecondaryBold,
+    color: white,
   },
 });

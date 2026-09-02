@@ -6,7 +6,7 @@ import {
   blue,
   fontSecondaryBold,
   gold,
-  darkYellow,
+  peach,
 } from 'utils/style-variables';
 
 const NAV_BUTTONS = [
@@ -26,7 +26,7 @@ const NAV_BUTTONS = [
     label: 'FAQ',
     route: 'FAQ',
     icon: 'help-circle-outline',
-    color: darkYellow,
+    color: peach,
   },
 ] as const;
 

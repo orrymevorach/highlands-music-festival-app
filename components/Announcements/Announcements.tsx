@@ -7,7 +7,15 @@ import {
   View,
 } from 'react-native';
 import Layout from 'components/shared/Layout/Layout';
+import GroovyCard from 'components/shared/GroovyCard/GroovyCard';
+import SectionHeading from 'components/shared/SectionHeading/SectionHeading';
 import { useAnnouncements } from './useAnnouncements';
+import {
+  black,
+  darkGreen,
+  fontSecondary,
+  fontSecondaryBold,
+} from 'utils/style-variables';
 
 export default function Announcements() {
   const { items, loading } = useAnnouncements();
@@ -30,16 +38,17 @@ export default function Announcements() {
 
   return (
     <Layout paddingHorizontal={0}>
+      <SectionHeading>Announcements</SectionHeading>
       <FlatList
         data={items}
         keyExtractor={item => item.id}
         style={styles.list}
         contentContainerStyle={styles.listContent}
         renderItem={({ item }) => (
-          <View style={styles.card}>
+          <GroovyCard contentStyle={styles.content}>
             <Text style={styles.title}>{item.title || 'Untitled'}</Text>
             <Text style={styles.body}>{item.body || ''}</Text>
-          </View>
+          </GroovyCard>
         )}
       />
     </Layout>
@@ -65,22 +74,19 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
   },
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
+  content: {
     padding: 14,
-    borderWidth: 1,
-    borderColor: '#ececec',
   },
   title: {
+    fontFamily: fontSecondaryBold,
     fontSize: 18,
-    fontWeight: '700',
     marginBottom: 6,
-    color: '#111',
+    color: darkGreen,
   },
   body: {
+    fontFamily: fontSecondary,
     fontSize: 15,
     lineHeight: 20,
-    color: '#333',
+    color: black,
   },
 });

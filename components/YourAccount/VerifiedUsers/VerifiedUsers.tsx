@@ -52,8 +52,6 @@ const styles = StyleSheet.create({
   },
   row: {
     paddingVertical: 6,
-    borderBottomWidth: 1,
-    borderBottomColor: mediumGreen,
   },
   name: {
     fontFamily: fontSecondary,

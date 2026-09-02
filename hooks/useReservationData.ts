@@ -27,10 +27,19 @@ export type ReservationGroup = {
   members: ReservationUser[];
 };
 
+export type ReservationUnit = {
+  id: string;
+  name: string;
+  image?: { url: string }[];
+};
+
 export type UserReservationData = {
   user: ReservationUser | null;
   group: ReservationGroup;
   selectedBeds: ReservationBed[];
+  cabinAndUnitData?: {
+    units: ReservationUnit[];
+  };
 };
 
 export default function useReservationData(userId: string | null) {
