@@ -1,12 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import Button from 'components/shared/Button/Button';
+import GroovyCard from 'components/shared/GroovyCard/GroovyCard';
 import { useAuth } from 'context/AuthContext';
 import useReservationData from 'hooks/useReservationData';
 import { getBedLabel } from 'utils/bedLabels';
 import {
   black,
-  darkBeige,
   darkGreen,
   fontSecondary,
   fontSecondaryBold,
@@ -28,7 +28,7 @@ export default function CabinSummary() {
 
   if (!isLoggedIn) {
     return (
-      <View style={styles.container}>
+      <GroovyCard style={styles.container} contentStyle={styles.content}>
         <Text style={styles.title}>Your Cabin</Text>
         <Text style={styles.text}>Log in to see your cabin details.</Text>
         <Button
@@ -38,15 +38,15 @@ export default function CabinSummary() {
         >
           Log In
         </Button>
-      </View>
+      </GroovyCard>
     );
   }
 
   if (isLoading) {
     return (
-      <View style={styles.container}>
+      <GroovyCard style={styles.container} contentStyle={styles.content}>
         <ActivityIndicator color={darkGreen} />
-      </View>
+      </GroovyCard>
     );
   }
 
@@ -54,13 +54,13 @@ export default function CabinSummary() {
 
   if (!cabin) {
     return (
-      <View style={styles.container}>
+      <GroovyCard style={styles.container} contentStyle={styles.content}>
         <Text style={styles.title}>Your Cabin</Text>
         <Text style={styles.text}>You haven't reserved a cabin yet.</Text>
         <Button isDarkGreen isSmall href={BOOK_A_CABIN_URL}>
           Book Your Cabin Now
         </Button>
-      </View>
+      </GroovyCard>
     );
   }
 
@@ -68,7 +68,7 @@ export default function CabinSummary() {
   const currentUserBed = data?.selectedBeds.find(bed => bed.id === user?.id);
 
   return (
-    <View style={styles.container}>
+    <GroovyCard style={styles.container} contentStyle={styles.content}>
       <Text style={styles.title}>Your Cabin</Text>
       <View style={styles.row}>
         <Text style={styles.label}>Cabin:</Text>
@@ -102,24 +102,17 @@ export default function CabinSummary() {
       >
         View Reservation Details
       </Button>
-    </View>
+    </GroovyCard>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: darkBeige,
-    padding: 20,
     marginHorizontal: 20,
     marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.12,
-    shadowRadius: 6,
-    elevation: 4,
+  },
+  content: {
+    padding: 20,
   },
   title: {
     fontFamily: fontSecondaryBold,

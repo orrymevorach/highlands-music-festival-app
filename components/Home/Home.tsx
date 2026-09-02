@@ -9,6 +9,7 @@ import InformationTiles from './InformationTiles/InformationTiles';
 import Articles from './Articles/Articles';
 import Sponsors from './Sponsors/Sponsors';
 import CabinSummary from './CabinSummary/CabinSummary';
+import QuickNavButtons from './QuickNavButtons/QuickNavButtons';
 
 export default function Home() {
   const headlinerFeatureFlagResponse = useQuery(GET_FEATURE_FLAG, {
@@ -42,6 +43,7 @@ export default function Home() {
   return (
     <Layout scroll paddingHorizontal={0}>
       <CabinSummary />
+      <QuickNavButtons />
       <PricingContainer />
       {headlinerFeatureFlag && (
         <ArtistAnnouncement

@@ -73,12 +73,12 @@ export default function Navigation() {
           <Tab.Screen name='Home' component={Home} />
           <Tab.Screen name='Lineup' component={Lineup} />
           <Tab.Screen name='Announcements' component={Announcements} />
+          <Tab.Screen name='FAQ' component={Faq} />
           {isLoggedIn ? (
             <Tab.Screen name='Account' component={YourAccount} />
           ) : (
             <Tab.Screen name='Login' component={Login} />
           )}
-          <Tab.Screen name='FAQ' component={Faq} />
         </Tab.Navigator>
       </ApolloProvider>
     </NavigationContainer>
