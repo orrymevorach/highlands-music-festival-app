@@ -12,6 +12,7 @@ import CabinSummary from './CabinSummary/CabinSummary';
 import QuickNavButtons from './QuickNavButtons/QuickNavButtons';
 import TicketCountdown from './TicketCountdown/TicketCountdown';
 import RecentAnnouncements from './RecentAnnouncements/RecentAnnouncements';
+import SpotifyPlaylist from './SpotifyPlaylist/SpotifyPlaylist';
 
 export default function Home() {
   const headlinerFeatureFlagResponse = useQuery(GET_FEATURE_FLAG, {
@@ -46,6 +47,7 @@ export default function Home() {
     <Layout scroll paddingHorizontal={0}>
       <CabinSummary />
       <QuickNavButtons />
+      <SpotifyPlaylist />
       <TicketCountdown />
       <RecentAnnouncements />
       {/* <PricingContainer /> */}
