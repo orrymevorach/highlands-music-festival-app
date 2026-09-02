@@ -109,7 +109,8 @@ export default function CreateAccount({ onBack }: { onBack?: () => void }) {
         />
 
         <Text style={styles.label}>
-          Temporary Password <Text style={styles.hint}>(The one sent to your email)</Text>
+          Temporary Password{' '}
+          <Text style={styles.hint}>(The one sent to your email)</Text>
         </Text>
         <TextInput
           style={styles.input}
@@ -122,9 +123,15 @@ export default function CreateAccount({ onBack }: { onBack?: () => void }) {
           textContentType='password'
         />
 
-        <Pressable onPress={handleResendTemporaryPassword} disabled={isSendingTempPassword}>
+        <Pressable
+          onPress={handleResendTemporaryPassword}
+          disabled={isSendingTempPassword}
+        >
           {isSendingTempPassword ? (
-            <ActivityIndicator color={mediumGreen} style={styles.resendLoader} />
+            <ActivityIndicator
+              color={mediumGreen}
+              style={styles.resendLoader}
+            />
           ) : (
             <Text style={styles.link}>
               {tempPasswordSent ? 'Sent! \u2713' : 'Resend Temporary Password'}

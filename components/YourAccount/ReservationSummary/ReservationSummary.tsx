@@ -29,6 +29,7 @@ export default function ReservationSummary({ cabin }: ReservationSummaryProps) {
   const { name, unit, additionalInformation, category } = cabin;
   const unitName = Array.isArray(unit) ? unit[0] : unit;
   const categoryName = category?.[0];
+  const showCategory = Boolean(categoryName) && categoryName !== 'Anywhere!';
   const hasAdditionalInformation = Boolean(additionalInformation?.length);
 
   return (
@@ -41,7 +42,7 @@ export default function ReservationSummary({ cabin }: ReservationSummaryProps) {
         <Text style={styles.label}>Unit:</Text>
         <Text style={styles.value}>{unitName}</Text>
       </View>
-      {categoryName && (
+      {showCategory && (
         <View style={styles.row}>
           <Text style={styles.label}>Category:</Text>
           <Pill isGold>{categoryName}</Pill>

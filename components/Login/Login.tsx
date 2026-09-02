@@ -149,8 +149,8 @@ export default function Login() {
 
         <Pressable onPress={() => setShowForgotPassword(true)}>
           <Text style={styles.link}>
-            Forgot your password? <Text style={styles.linkBold}>Click here</Text>{' '}
-            to reset it.
+            Forgot your password?{' '}
+            <Text style={styles.linkBold}>Click here</Text> to reset it.
           </Text>
         </Pressable>
 
@@ -192,13 +192,13 @@ function ForgotPasswordModal({ onClose }: { onClose: () => void }) {
         {showSuccess ? (
           <>
             <Text style={styles.modalHeader}>
-              If an account is associated with that email, a password reset
-              link has been sent.
+              If an account is associated with that email, a password reset link
+              has been sent.
             </Text>
             <Text style={styles.modalText}>
-              If you do not receive a password reset link in your inbox,
-              check your junk mail. If you are still having issues, please
-              reach out to info@highlandsmusicfestival.ca.
+              If you do not receive a password reset link in your inbox, check
+              your junk mail. If you are still having issues, please reach out
+              to info@highlandsmusicfestival.ca.
             </Text>
             <Pressable style={styles.modalButton} onPress={onClose}>
               <Text style={styles.modalButtonText}>Close</Text>

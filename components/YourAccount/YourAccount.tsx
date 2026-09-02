@@ -1,11 +1,24 @@
-import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Layout from 'components/shared/Layout/Layout';
 import useReservationData from 'hooks/useReservationData';
 import ReservationSummary from './ReservationSummary/ReservationSummary';
 import VerifiedUsers from './VerifiedUsers/VerifiedUsers';
 import BedMap from './BedMap/BedMap';
 import { useAuth } from 'context/AuthContext';
-import { black, darkGreen, fontSecondary, fontSecondaryBold, mediumGreen, white } from 'utils/style-variables';
+import {
+  black,
+  darkGreen,
+  fontSecondary,
+  fontSecondaryBold,
+  mediumGreen,
+  white,
+} from 'utils/style-variables';
 
 function LogoutButton({ onLogout }: { onLogout: () => void }) {
   return (

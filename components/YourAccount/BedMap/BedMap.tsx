@@ -10,22 +10,7 @@ import {
   white,
 } from 'utils/style-variables';
 import type { ReservationBed } from 'hooks/useReservationData';
-
-// mirrors the web app's BEDS constant (src/utils/constants.js)
-const BED_LABELS: Record<string, string> = {
-  frontBunkLeft: 'Front Bunk Left',
-  backBunkLeft: 'Back Bunk Left',
-  frontCotLeft: 'Front Cot Left',
-  backCotLeft: 'Back Cot Left',
-  frontLoftLeft: 'Front Loft Left',
-  backLoftLeft: 'Back Loft Left',
-  frontBunkRight: 'Front Bunk Right',
-  backBunkRight: 'Back Bunk Right',
-  frontCotRight: 'Front Cot Right',
-  backCotRight: 'Back Cot Right',
-  frontLoftRight: 'Front Loft Right',
-  backLoftRight: 'Back Loft Right',
-};
+import { BED_LABELS } from 'utils/bedLabels';
 
 // grouped so there's extra spacing between bunk/loft/cot clusters, matching
 // the physical layout in the web app's cabin.jsx

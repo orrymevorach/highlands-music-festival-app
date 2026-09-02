@@ -8,6 +8,7 @@ import { GET_FEATURE_FLAG, GET_LINEUP_AND_SCHEDULE } from 'contentful/queries';
 import InformationTiles from './InformationTiles/InformationTiles';
 import Articles from './Articles/Articles';
 import Sponsors from './Sponsors/Sponsors';
+import CabinSummary from './CabinSummary/CabinSummary';
 
 export default function Home() {
   const headlinerFeatureFlagResponse = useQuery(GET_FEATURE_FLAG, {
@@ -40,6 +41,7 @@ export default function Home() {
 
   return (
     <Layout scroll paddingHorizontal={0}>
+      <CabinSummary />
       <PricingContainer />
       {headlinerFeatureFlag && (
         <ArtistAnnouncement
