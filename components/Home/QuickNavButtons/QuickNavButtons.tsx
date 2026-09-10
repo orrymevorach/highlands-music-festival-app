@@ -1,15 +1,33 @@
 import { useNavigation } from '@react-navigation/native';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useAuth, type AuthUser } from 'context/AuthContext';
 import {
   black,
   blue,
   fontSecondaryBold,
   gold,
   peach,
+  orange,
 } from 'utils/style-variables';
 
-const NAV_BUTTONS = [
+const CHECK_IN_URL = 'https://reservations.highlandsmusicfestival.ca/check-in';
+
+type NavButton = {
+  label: string;
+  route: string;
+  icon: React.ComponentProps<typeof Ionicons>['name'];
+  color: string;
+  url?: string;
+};
+
+const getNavButtons = ({
+  user,
+  isCheckedIn,
+}: {
+  user: AuthUser | null;
+  isCheckedIn: boolean;
+}): NavButton[] => [
   {
     label: 'Announcements',
     route: 'Announcements',
@@ -28,18 +46,31 @@ const NAV_BUTTONS = [
     icon: 'help-circle-outline',
     color: peach,
   },
-] as const;
+  {
+    label: isCheckedIn ? 'Checked In!' : 'Check In',
+    route: 'CheckIn',
+    icon: isCheckedIn ? 'checkmark-circle-outline' : 'qr-code-outline',
+    color: orange,
+    url: user ? `${CHECK_IN_URL}?id=${user.id}` : CHECK_IN_URL,
+  },
+];
 
 export default function QuickNavButtons() {
   const navigation = useNavigation<any>();
+  const { user } = useAuth();
+
+  const isCheckedIn = user?.isCheckedIn === 'Yes';
+  const navButtons = getNavButtons({ user, isCheckedIn });
 
   return (
     <View style={styles.row}>
-      {NAV_BUTTONS.map(({ label, route, icon, color }) => (
+      {navButtons.map(({ label, route, icon, color, url }) => (
         <Pressable
           key={route}
           style={styles.buttonWrapper}
-          onPress={() => navigation.navigate(route)}
+          onPress={() =>
+            url ? Linking.openURL(url) : navigation.navigate(route)
+          }
         >
           {({ pressed }) => (
             <>
@@ -67,13 +98,15 @@ const BORDER_BROWN = '#422800';
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    gap: 16,
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    rowGap: 16,
     marginHorizontal: 20,
     marginBottom: 20,
   },
   buttonWrapper: {
-    flex: 1,
-    aspectRatio: 1,
+    width: '48%',
+    height: 120,
     position: 'relative',
   },
   background: {
