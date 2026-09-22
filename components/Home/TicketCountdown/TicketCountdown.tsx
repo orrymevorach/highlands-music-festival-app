@@ -75,7 +75,7 @@ export default function TicketCountdown() {
 
       <Text style={styles.subtitle}>
         September 25, 2026 at 10:00 AM {'\u2014'} this will be the lowest ticket
-        price we ever offer, so don't miss it.
+        price we ever offer, so don&apos;t miss it.
       </Text>
 
       {hasSaleStarted && (

@@ -1,4 +1,11 @@
-import { ActivityIndicator, StyleSheet, Text } from 'react-native';
+import {
+  ActivityIndicator,
+  Linking,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Layout from 'components/shared/Layout/Layout';
 import GroovyCard from 'components/shared/GroovyCard/GroovyCard';
 import Button from 'components/shared/Button/Button';
@@ -15,6 +22,7 @@ import {
   fontSecondary,
   peach,
 } from 'utils/style-variables';
+import { PRIVACY_POLICY_URL, SUPPORT_URL } from 'utils/constants';
 
 export default function YourAccount() {
   const { user: authUser, logout } = useAuth();
@@ -42,7 +50,9 @@ export default function YourAccount() {
   if (!data?.user?.cabin) {
     return (
       <Layout center>
-        <Text style={styles.message}>You haven't reserved a cabin yet.</Text>
+        <Text style={styles.message}>
+          You haven&apos;t reserved a cabin yet.
+        </Text>
         <Button isDarkGreen isSmall handleClick={logout}>
           Log Out
         </Button>
@@ -62,7 +72,9 @@ export default function YourAccount() {
   const unitName = Array.isArray(data.user.cabin.unit)
     ? data.user.cabin.unit[0]
     : data.user.cabin.unit;
-  const unit = data.cabinAndUnitData?.units.find(({ name }) => name === unitName);
+  const unit = data.cabinAndUnitData?.units.find(
+    ({ name }) => name === unitName,
+  );
   const unitMapImageUrl = unit?.image?.[0]?.url;
 
   return (
@@ -102,6 +114,15 @@ export default function YourAccount() {
       >
         Log Out
       </Button>
+
+      <View style={styles.legalLinks}>
+        <Pressable onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}>
+          <Text style={styles.legalLink}>Privacy Policy</Text>
+        </Pressable>
+        <Pressable onPress={() => Linking.openURL(SUPPORT_URL)}>
+          <Text style={styles.legalLink}>Support</Text>
+        </Pressable>
+      </View>
     </Layout>
   );
 }
@@ -127,5 +148,16 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginTop: 4,
     marginBottom: 30,
+  },
+  legalLinks: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 20,
+    marginBottom: 24,
+  },
+  legalLink: {
+    fontFamily: fontSecondary,
+    color: darkGreen,
+    textDecorationLine: 'underline',
   },
 });

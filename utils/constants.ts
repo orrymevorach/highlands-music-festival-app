@@ -16,3 +16,7 @@ export const MAP_URLS_TO_SCREENS = {
   '/faq': 'FAQ',
   'location-and-accommodation': 'Home',
 } as const;
+
+export const PRIVACY_POLICY_URL =
+  'https://highlandsmusicfestival.ca/privacy-policy';
+export const SUPPORT_URL = 'https://highlandsmusicfestival.ca/contact';

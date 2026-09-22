@@ -56,7 +56,7 @@ export default function CabinSummary() {
     return (
       <GroovyCard style={styles.container} contentStyle={styles.content}>
         <Text style={styles.title}>Your Cabin</Text>
-        <Text style={styles.text}>You haven't reserved a cabin yet.</Text>
+        <Text style={styles.text}>You haven&apos;t reserved a cabin yet.</Text>
         <Button isDarkGreen isSmall href={BOOK_A_CABIN_URL}>
           Book Your Cabin Now
         </Button>
@@ -87,7 +87,7 @@ export default function CabinSummary() {
         </View>
       ) : (
         <>
-          <Text style={styles.text}>You haven't reserved a bed yet.</Text>
+          <Text style={styles.text}>You haven&apos;t reserved a bed yet.</Text>
           <Button isDarkGreen isSmall href={RESERVE_A_BED_URL}>
             Reserve Your Bed
           </Button>

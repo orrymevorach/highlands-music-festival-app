@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
 
+const RESERVATIONS_API_URL = (
+  process.env.EXPO_PUBLIC_RESERVATIONS_API_URL ||
+  'https://reservations.highlandsmusicfestival.ca'
+).replace(/\/$/, '');
+
 export type ReservationBed = {
   bedName: string;
   id?: string;
@@ -56,7 +61,7 @@ export default function useReservationData(userId: string | null) {
     async function fetchReservationData() {
       try {
         const response = await fetch(
-          `${process.env.EXPO_PUBLIC_RESERVATIONS_API_URL}/api/platform/user-reservation-data?userId=${userId}`,
+          `${RESERVATIONS_API_URL}/api/platform/user-reservation-data?userId=${encodeURIComponent(userId)}`,
         ).then(res => res.json());
 
         if (response.message) {

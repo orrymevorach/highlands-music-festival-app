@@ -67,9 +67,9 @@ export const sharedRichTextConfig = {
     [BLOCKS.HEADING_5]: (_node, children) => <Text>{children}</Text>,
     [BLOCKS.HEADING_6]: (_node, children) => <Text>{children}</Text>,
     [BLOCKS.UL_LIST]: (_node, children) => {
-      return children.map(child => {
+      return children.map((child, index) => {
         return (
-          <View style={styles.listItem}>
+          <View key={index} style={styles.listItem}>
             <Text style={styles.bulletPoint}>{'\u2022'}</Text>
             <Text style={styles.listItem}>{child}</Text>
           </View>

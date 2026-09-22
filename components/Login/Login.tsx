@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {
   ActivityIndicator,
   Modal,
+  Linking,
   Pressable,
   StyleSheet,
   Text,
@@ -26,6 +27,7 @@ import {
   mediumGreen,
   white,
 } from 'utils/style-variables';
+import { PRIVACY_POLICY_URL, SUPPORT_URL } from 'utils/constants';
 
 // mirrors src/components/loginPage/login/login.jsx's errors map
 const ERRORS = {
@@ -156,10 +158,19 @@ export default function Login() {
 
         <Pressable onPress={() => setShowCreateAccount(true)}>
           <Text style={styles.link}>
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Text style={styles.linkBold}>Create an account.</Text>
           </Text>
         </Pressable>
+
+        <View style={styles.legalLinks}>
+          <Pressable onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}>
+            <Text style={styles.legalLink}>Privacy Policy</Text>
+          </Pressable>
+          <Pressable onPress={() => Linking.openURL(SUPPORT_URL)}>
+            <Text style={styles.legalLink}>Support</Text>
+          </Pressable>
+        </View>
       </View>
 
       <Modal
@@ -294,6 +305,17 @@ const styles = StyleSheet.create({
   linkBold: {
     fontFamily: fontSecondaryBold,
     color: darkGreen,
+  },
+  legalLinks: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 20,
+    marginTop: 24,
+  },
+  legalLink: {
+    fontFamily: fontSecondary,
+    color: darkGreen,
+    textDecorationLine: 'underline',
   },
   modalOverlay: {
     flex: 1,

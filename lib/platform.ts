@@ -1,7 +1,12 @@
+const RESERVATIONS_API_URL = (
+  process.env.EXPO_PUBLIC_RESERVATIONS_API_URL ||
+  'https://reservations.highlandsmusicfestival.ca'
+).replace(/\/$/, '');
+
 export async function getUserByEmail(email: string) {
   try {
     const { user } = await fetch(
-      `${process.env.EXPO_PUBLIC_RESERVATIONS_API_URL}/api/platform/user-by-email?email=${encodeURIComponent(email)}`,
+      `${RESERVATIONS_API_URL}/api/platform/user-by-email?email=${encodeURIComponent(email)}`,
     ).then(res => res.json());
     return user;
   } catch (error) {
@@ -13,7 +18,7 @@ export async function getUserByEmail(email: string) {
 export async function getUserByRecordId(recordId: string) {
   try {
     const { record } = await fetch(
-      `${process.env.EXPO_PUBLIC_RESERVATIONS_API_URL}/api/airtable/get-user-by-record-id`,
+      `${RESERVATIONS_API_URL}/api/airtable/get-user-by-record-id`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -39,7 +44,7 @@ export async function addFirebaseUid({
 }) {
   try {
     await fetch(
-      `${process.env.EXPO_PUBLIC_RESERVATIONS_API_URL}/api/airtable/add-firebase-uid`,
+      `${RESERVATIONS_API_URL}/api/airtable/add-firebase-uid`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

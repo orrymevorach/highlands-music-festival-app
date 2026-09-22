@@ -16,14 +16,18 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.orrymevorach.HighlandsMusicFestival"
+      "bundleIdentifier": "com.highlandsmusicfestival.app",
+      "buildNumber": "1",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.orrymevorach.HighlandsMusicFestival"
+      "package": "com.highlandsmusicfestival.app"
     },
     "web": {
       "favicon": "./assets/Logo-No-Bkgd-min.png"
@@ -34,7 +38,8 @@
       }
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-notifications"
     ]
   }
 }
