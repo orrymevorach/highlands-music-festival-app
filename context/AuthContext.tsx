@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from 'react';
 import { getUserByRecordId } from 'lib/platform';
+import { signOutFirebase } from '../firebase/firebaseAuth';
 import { clearUserId, getUserId, saveUserId } from 'utils/session';
 
 export type AuthUser = {
@@ -46,6 +47,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async () => {
+    await signOutFirebase();
     await clearUserId();
     setUser(null);
   };

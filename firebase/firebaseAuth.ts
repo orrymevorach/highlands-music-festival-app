@@ -1,10 +1,14 @@
 import { getApps, initializeApp } from 'firebase/app';
 import {
   createUserWithEmailAndPassword,
+  deleteUser,
+  EmailAuthProvider,
   getAuth,
   initializeAuth,
+  reauthenticateWithCredential,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  signOut,
   type Auth,
 } from 'firebase/auth';
 // @ts-ignore - RN-only export; present at runtime (dist/rn/index.rn.d.ts) but not always resolved by the editor's TS server
@@ -73,6 +77,52 @@ export const createFirebaseUser = async ({
   }
 };
 
+export const signOutFirebase = async () => {
+  try {
+    await signOut(auth);
+    return {};
+  } catch (error: any) {
+    return { error };
+  }
+};
+
+export const reauthenticateFirebaseUser = async ({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) => {
+  try {
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+      return { error: { code: 'auth/user-not-found' } };
+    }
+
+    const credential = EmailAuthProvider.credential(email, password);
+    await reauthenticateWithCredential(currentUser, credential);
+    return {};
+  } catch (error: any) {
+    return { error };
+  }
+};
+
+export const deleteFirebaseUser = async () => {
+  try {
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+      return { error: { code: 'auth/user-not-found' } };
+    }
+
+    await deleteUser(currentUser);
+    return { uid: currentUser.uid };
+  } catch (error: any) {
+    return { error };
+  }
+};
+
 // mirrors src/components/loginPage/login/firebase-utils.js's errors map
 export const firebaseErrors: Record<string, string> = {
   'auth/invalid-credential': 'Incorrect password. Please try again.',
@@ -87,6 +137,8 @@ export const firebaseErrors: Record<string, string> = {
     'Password should be at least 6 characters. Please enter a stronger password.',
   'auth/wrong-password':
     'This password does not match the one we have on file for this email. Please try again.',
+  'auth/requires-recent-login':
+    'Please log in again and try deleting your account.',
 };
 
 export const GENERIC_AUTH_ERROR =

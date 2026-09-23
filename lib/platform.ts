@@ -43,18 +43,37 @@ export async function addFirebaseUid({
   uid: string;
 }) {
   try {
-    await fetch(
-      `${RESERVATIONS_API_URL}/api/airtable/add-firebase-uid`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tableId: 'Ticket Purchases',
-          recordId: attendeeId,
-          newFields: { 'Firebase UID': uid },
-        }),
-      },
-    ).then(res => res.json());
+    await fetch(`${RESERVATIONS_API_URL}/api/airtable/add-firebase-uid`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tableId: 'Ticket Purchases',
+        recordId: attendeeId,
+        newFields: { 'Firebase UID': uid },
+      }),
+    }).then(res => res.json());
+  } catch (error) {
+    console.log('error', error);
+  }
+}
+
+export async function removeFirebaseUid({
+  attendeeId,
+  uid,
+}: {
+  attendeeId: string;
+  uid?: string;
+}) {
+  try {
+    await fetch(`${RESERVATIONS_API_URL}/api/airtable/remove-firebase-uid`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tableId: 'Ticket Purchases',
+        recordId: attendeeId,
+        newFields: { 'Firebase UID': uid ?? '' },
+      }),
+    }).then(res => res.json());
   } catch (error) {
     console.log('error', error);
   }
